@@ -26,7 +26,7 @@ export function cronApiKeyMiddleware(
     });
   }
 
-  next();
+  return next();
 }
 
 // Option 2: Admin authentication (if you have admin middleware)
@@ -46,7 +46,7 @@ export function cronAdminMiddleware(
     });
   }
 
-  next();
+  return next();
 }
 
 // Option 3: Environment-based protection
@@ -70,5 +70,5 @@ export function cronEnvMiddleware(
     }
   }
 
-  next();
+  return next();
 }
