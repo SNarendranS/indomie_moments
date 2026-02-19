@@ -135,20 +135,20 @@ export const config = {
       userAccess: "user_token",
       userRefresh: "user_refresh_token",
     } as const,
-    cookieOptions: (secure: boolean, maxAgeSeconds?: number) => ({
-      httpOnly: true,
-      secure,
-      sameSite: "lax" as const,
-      maxAge: (maxAgeSeconds ?? 15 * 60) * 1000, // Express expects milliseconds
-      path: "/",
-    }),
-    refreshCookieOptions: (secure: boolean) => ({
-      httpOnly: true,
-      secure,
-      sameSite: "lax" as const,
-      maxAge: 7 * 24 * 60 * 60 * 1000, // Express expects milliseconds
-      path: "/",
-    }),
+cookieOptions: (secure: boolean, maxAgeSeconds?: number) => ({
+  httpOnly: true,
+  secure,
+  sameSite: (env.NODE_ENV === "production" ? "none" : "lax") as "none" | "lax",
+  maxAge: (maxAgeSeconds ?? 15 * 60) * 1000,
+  path: "/",
+}),
+refreshCookieOptions: (secure: boolean) => ({
+  httpOnly: true,
+  secure,
+  sameSite: (env.NODE_ENV === "production" ? "none" : "lax") as "none" | "lax",
+  maxAge: 7 * 24 * 60 * 60 * 1000,
+  path: "/",
+}),
   },
 
   azure: {
